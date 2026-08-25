@@ -63,11 +63,11 @@ export default function Home() {
             Platform
           </a>
         </nav>
-        <a
-          href="#join"
+        
+          href="/start"
           className="rounded-full border border-lamp/40 bg-lamp/10 px-4 py-2 font-mono text-xs uppercase tracking-wider text-lamp transition-colors hover:bg-lamp/20"
         >
-          Join waitlist
+          Start your company
         </a>
       </header>
 
@@ -91,13 +91,13 @@ export default function Home() {
               paid — entirely online, from anywhere in the world.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <a
-                href="#join"
+              
+                href="/start"
                 className="rounded-full bg-lamp px-6 py-3 font-mono text-sm font-medium uppercase tracking-wider text-ink transition-transform hover:scale-[1.03]"
               >
                 Start your company
               </a>
-              <a
+              
                 href="#how"
                 className="font-mono text-sm uppercase tracking-wider text-text-dim transition-colors hover:text-text"
               >
@@ -185,23 +185,15 @@ export default function Home() {
             Give them somewhere to show up.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-sm text-text-dim sm:text-base">
-            Join the waitlist to be among the first companies to form,
-            hire, and operate on Nexus HQ.
+            Be among the first companies to form, hire, and operate on
+            Nexus HQ — it takes about a minute.
           </p>
-          <form className="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row">
-            <input
-              type="email"
-              required
-              placeholder="you@yourcompany.com"
-              className="w-full flex-1 rounded-full border border-line bg-ink px-5 py-3 text-sm text-text placeholder:text-text-dim focus:border-lamp"
-            />
-            <button
-              type="submit"
-              className="shrink-0 rounded-full bg-lamp px-6 py-3 font-mono text-sm font-medium uppercase tracking-wider text-ink transition-transform hover:scale-[1.03]"
-            >
-              Join waitlist
-            </button>
-          </form>
+          
+            href="/start"
+            className="mt-8 inline-block rounded-full bg-lamp px-8 py-3 font-mono text-sm font-medium uppercase tracking-wider text-ink transition-transform hover:scale-[1.03]"
+          >
+            Start your company
+          </a>
         </div>
       </section>
 
