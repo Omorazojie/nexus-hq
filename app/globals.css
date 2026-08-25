@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #0b0f2b;
+  --ink-soft: #12173d;
+  --surface: #161b45;
+  --line: #2a3070;
+  --text: #eae8f7;
+  --text-dim: #a6a9d6;
+  --lamp: #f2b84b;
+  --lamp-dim: #6b5326;
+  --live: #4fd1a5;
+
+  --font-display: "Avenir Next", "Segoe UI", ui-sans-serif, system-ui,
+    sans-serif;
+  --font-body: -apple-system, "Segoe UI", Roboto, ui-sans-serif, system-ui,
+    sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-text: var(--text);
+  --color-text-dim: var(--text-dim);
+  --color-lamp: var(--lamp);
+  --color-live: var(--live);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+body {
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--font-body);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--lamp);
+  outline-offset: 3px;
+}
