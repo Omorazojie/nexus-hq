@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import type { Company } from "@/lib/supabase";
+import type { Company, Position } from "@/lib/supabase";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -16,6 +16,17 @@ async function getCompany(slug: string): Promise<Company | null> {
   return data as Company;
 }
 
+async function getPositions(companyId: string): Promise<Position[]> {
+  const { data, error } = await supabase
+    .from("positions")
+    .select("*")
+    .eq("company_id", companyId)
+    .order("created_at", { ascending: false });
+
+  if (error || !data) return [];
+  return data as Position[];
+}
+
 export default async function CompanyPage({
   params,
 }: {
@@ -28,6 +39,7 @@ export default async function CompanyPage({
     notFound();
   }
 
+  const positions = await getPositions(company.id);
   const initial = company.name.trim().charAt(0).toUpperCase() || "?";
 
   return (
@@ -69,13 +81,54 @@ export default async function CompanyPage({
           </p>
         </div>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-3">
-          <div className="rounded-lg border border-dashed border-line px-4 py-6 text-center">
-            <p className="font-mono text-xs uppercase tracking-wider text-text-dim">
-              Open positions
-            </p>
-            <p className="mt-2 text-sm text-text-dim">Coming next</p>
+        {/* Open positions */}
+        <div className="mt-8 rounded-xl border border-line bg-ink-soft p-6 sm:p-8">
+          <div className="flex items-center justify-between">
+            <h2 className="font-mono text-xs uppercase tracking-wider text-text-dim">
+              Open positions {positions.length > 0 && `(${positions.length})`}
+            </h2>
+            <a
+              href={`/c/${company.slug}/positions/new`}
+              className="rounded-full border border-lamp/40 bg-lamp/10 px-4 py-1.5 font-mono text-xs uppercase tracking-wider text-lamp transition-colors hover:bg-lamp/20"
+            >
+              + Post a position
+            </a>
           </div>
+
+          {positions.length === 0 ? (
+            <p className="mt-4 text-sm text-text-dim">
+              No open positions yet.
+            </p>
+          ) : (
+            <div className="mt-4 flex flex-col gap-3">
+              {positions.map((position) => (
+                <a
+                  key={position.id}
+                  href={`/c/${company.slug}/positions/${position.id}`}
+                  className="block rounded-lg border border-line bg-ink px-5 py-4 transition-colors hover:border-lamp/50"
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <p className="font-display text-base font-semibold">
+                        {position.title}
+                      </p>
+                      <p className="mt-1 font-mono text-[11px] text-text-dim">
+                        {position.position_type}
+                        {position.location ? ` · ${position.location}` : ""}
+                        {position.pay ? ` · ${position.pay}` : ""}
+                      </p>
+                    </div>
+                    <span className="font-mono text-xs text-lamp">
+                      View →
+                    </span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
           <div className="rounded-lg border border-dashed border-line px-4 py-6 text-center">
             <p className="font-mono text-xs uppercase tracking-wider text-text-dim">
               Team office
@@ -92,7 +145,7 @@ export default async function CompanyPage({
 
         <p className="mt-10 text-center font-mono text-[11px] text-text-dim">
           This page was created just now and saved for good — refresh, close
-          your browser, come back tomorrow: it'll still be here.
+          your browser, come back tomorrow: it&apos;ll still be here.
         </p>
       </section>
     </div>
