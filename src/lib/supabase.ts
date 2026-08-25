@@ -39,3 +39,21 @@ export type Application = {
   message: string;
   created_at: string;
 };
+
+export type TeamMember = {
+  id: string;
+  company_id: string;
+  name: string;
+  role: string;
+  last_seen_at: string;
+  created_at: string;
+};
+
+export type OfficePost = {
+  id: string;
+  company_id: string;
+  member_id: string;
+  author_name: string;
+  message: string;
+  created_at: string;
+};
