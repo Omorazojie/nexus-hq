@@ -57,3 +57,16 @@ export type OfficePost = {
   message: string;
   created_at: string;
 };
+
+export type Payment = {
+  id: string;
+  company_id: string;
+  type: "incoming" | "payout";
+  amount: number;
+  currency: string;
+  description: string;
+  status: string;
+  stripe_session_id: string | null;
+  payee_name: string | null;
+  created_at: string;
+};
