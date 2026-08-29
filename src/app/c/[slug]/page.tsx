@@ -150,12 +150,17 @@ export default async function CompanyPage({
               See who&apos;s checked in and the team feed
             </p>
           </a>
-          <div className="rounded-lg border border-dashed border-line px-4 py-6 text-center">
-            <p className="font-mono text-xs uppercase tracking-wider text-text-dim">
-              Storefront
+          <a
+            href={`/c/${company.slug}/storefront`}
+            className="rounded-lg border border-line bg-ink-soft px-4 py-6 text-center transition-colors hover:border-lamp/50"
+          >
+            <p className="font-mono text-xs uppercase tracking-wider text-lamp">
+              Storefront →
             </p>
-            <p className="mt-2 text-sm text-text-dim">Coming next</p>
-          </div>
+            <p className="mt-2 text-sm text-text-dim">
+              Browse and buy what {company.name} sells
+            </p>
+          </a>
         </div>
 
         <p className="mt-10 text-center font-mono text-[11px] text-text-dim">
