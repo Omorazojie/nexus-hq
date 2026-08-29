@@ -23,7 +23,7 @@ export default async function MarketplacePage() {
           href="/"
           className="font-display text-lg font-semibold tracking-tight"
         >
-          Nexus<span className="text-lamp">HQ</span>
+          Koina<span className="text-lamp">HQ</span>
         </Link>
         <a
           href="/start"
@@ -38,7 +38,7 @@ export default async function MarketplacePage() {
           The marketplace
         </h1>
         <p className="mt-2 max-w-xl text-sm text-text-dim">
-          Every company formed on Nexus HQ — discover who&apos;s hiring,
+          Every company formed on KoinaHQ — discover who&apos;s hiring,
           who&apos;s selling, and who&apos;s open for business.
         </p>
 
