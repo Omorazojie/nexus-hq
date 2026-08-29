@@ -70,3 +70,23 @@ export type Payment = {
   payee_name: string | null;
   created_at: string;
 };
+
+export type Product = {
+  id: string;
+  company_id: string;
+  name: string;
+  description: string;
+  price: number | null;
+  image_url: string | null;
+  listing_type: "buy" | "inquire";
+  created_at: string;
+};
+
+export type Inquiry = {
+  id: string;
+  product_id: string;
+  name: string;
+  email: string;
+  message: string;
+  created_at: string;
+};
