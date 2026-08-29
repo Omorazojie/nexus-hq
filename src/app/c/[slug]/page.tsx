@@ -2,6 +2,8 @@ import { supabase } from "@/lib/supabase";
 import type { Company, Position } from "@/lib/supabase";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import PaymentsPanel from "@/components/PaymentsPanel";
 
 export const revalidate = 0;
 
@@ -127,6 +129,14 @@ export default async function CompanyPage({
             </div>
           )}
         </div>
+
+        <Suspense fallback={null}>
+          <PaymentsPanel
+            companyId={company.id}
+            companySlug={company.slug}
+            companyName={company.name}
+          />
+        </Suspense>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
           <a
