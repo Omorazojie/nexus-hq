@@ -4,6 +4,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import type { Company } from "@/lib/supabase";
+import type { User } from "@supabase/supabase-js";
 
 export default function NewProductPage() {
   const params = useParams<{ slug: string }>();
@@ -11,6 +12,7 @@ export default function NewProductPage() {
   const slug = params.slug;
 
   const [company, setCompany] = useState<Company | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loadingCompany, setLoadingCompany] = useState(true);
 
   const [name, setName] = useState("");
@@ -23,12 +25,12 @@ export default function NewProductPage() {
 
   useEffect(() => {
     async function loadCompany() {
-      const { data } = await supabase
-        .from("companies")
-        .select("*")
-        .eq("slug", slug)
-        .single();
-      setCompany(data as Company | null);
+      const [{ data: companyData }, { data: userData }] = await Promise.all([
+        supabase.from("companies").select("*").eq("slug", slug).single(),
+        supabase.auth.getUser(),
+      ]);
+      setCompany(companyData as Company | null);
+      setUser(userData.user);
       setLoadingCompany(false);
     }
     loadCompany();
@@ -79,6 +81,24 @@ export default function NewProductPage() {
     return (
       <main className="flex min-h-screen items-center justify-center bg-ink text-text">
         <p>Company not found.</p>
+      </main>
+    );
+  }
+
+  if (!user || company.owner_id !== user.id) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-ink px-6 text-text">
+        <div className="text-center">
+          <p className="font-display text-xl font-semibold">
+            Only {company.name}&apos;s owner can list a product.
+          </p>
+          <a
+            href="/login"
+            className="mt-4 inline-block rounded-full bg-lamp px-6 py-2.5 font-mono text-xs uppercase tracking-wider text-ink"
+          >
+            Log in
+          </a>
+        </div>
       </main>
     );
   }
