@@ -53,7 +53,7 @@ export default function Home() {
       {/* Nav */}
       <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 sm:px-8">
         <div className="font-display text-lg font-semibold tracking-tight">
-          Nexus<span className="text-lamp">HQ</span>
+          Koina<span className="text-lamp">HQ</span>
         </div>
         <nav className="hidden items-center gap-8 font-mono text-xs uppercase tracking-wider text-text-dim sm:flex">
           <a href="#how" className="transition-colors hover:text-text">
@@ -64,6 +64,9 @@ export default function Home() {
           </a>
           <a href="/marketplace" className="transition-colors hover:text-text">
             Marketplace
+          </a>
+          <a href="/login" className="transition-colors hover:text-text">
+            Log in
           </a>
         </nav>
         <a
@@ -89,7 +92,7 @@ export default function Home() {
               <span className="text-lamp">Never open an office.</span>
             </h1>
             <p className="mt-6 max-w-lg text-base leading-relaxed text-text-dim sm:text-lg">
-              Nexus HQ is where you form your company, hire every position,
+              KoinaHQ is where you form your company, hire every position,
               give your team a place to belong, market to customers, and get
               paid — entirely online, from anywhere in the world.
             </p>
@@ -189,7 +192,7 @@ export default function Home() {
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-sm text-text-dim sm:text-base">
             Be among the first companies to form, hire, and operate on
-            Nexus HQ — it takes about a minute.
+            KoinaHQ — it takes about a minute.
           </p>
           <a
             href="/start"
@@ -203,7 +206,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t border-line">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 font-mono text-xs text-text-dim sm:flex-row sm:px-8">
-          <span>Nexus HQ — building the company, online.</span>
+          <span>KoinaHQ — building the company, online.</span>
           <span>&copy; {new Date().getFullYear()}</span>
         </div>
       </footer>
