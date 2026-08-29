@@ -51,7 +51,7 @@ export default async function CompanyPage({
           href="/"
           className="font-display text-lg font-semibold tracking-tight"
         >
-          Nexus<span className="text-lamp">HQ</span>
+          Koina<span className="text-lamp">HQ</span>
         </Link>
         <span className="flex items-center gap-2 font-mono text-[11px] text-text-dim">
           <span className="inline-block h-1.5 w-1.5 rounded-full bg-live" />
