@@ -14,7 +14,9 @@ export async function GET(req: NextRequest) {
   const stripe = new Stripe(secretKey);
 
   try {
-    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    const session = await stripe.checkout.sessions.retrieve(sessionId, {
+      expand: ["line_items"],
+    });
 
     if (session.payment_status !== "paid") {
       return NextResponse.json({ recorded: false });
