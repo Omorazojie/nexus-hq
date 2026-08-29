@@ -62,6 +62,9 @@ export default function Home() {
           <a href="#pillars" className="transition-colors hover:text-text">
             Platform
           </a>
+          <a href="/marketplace" className="transition-colors hover:text-text">
+            Marketplace
+          </a>
         </nav>
         <a
           href="/start"
