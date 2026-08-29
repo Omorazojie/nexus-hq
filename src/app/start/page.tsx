@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
+import type { User } from "@supabase/supabase-js";
 
 function slugify(input: string) {
   const base = input
@@ -16,10 +17,20 @@ function slugify(input: string) {
 
 export default function StartPage() {
   const router = useRouter();
+  const [user, setUser] = useState<User | null>(null);
+  const [checkingAuth, setCheckingAuth] = useState(true);
+
   const [name, setName] = useState("");
   const [mission, setMission] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      setUser(data.user);
+      setCheckingAuth(false);
+    });
+  }, []);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -27,6 +38,10 @@ export default function StartPage() {
 
     if (!name.trim()) {
       setError("Please enter a company name.");
+      return;
+    }
+    if (!user) {
+      setError("Please log in first.");
       return;
     }
 
@@ -37,6 +52,7 @@ export default function StartPage() {
       slug,
       name: name.trim(),
       mission: mission.trim() || null,
+      owner_id: user.id,
     });
 
     setLoading(false);
@@ -47,6 +63,44 @@ export default function StartPage() {
     }
 
     router.push(`/c/${slug}`);
+  }
+
+  if (checkingAuth) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-ink text-text-dim">
+        <p className="font-mono text-sm">Loading…</p>
+      </main>
+    );
+  }
+
+  if (!user) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-ink px-6 text-text">
+        <div className="w-full max-w-sm text-center">
+          <h1 className="font-display text-2xl font-semibold tracking-tight">
+            Log in to form a company
+          </h1>
+          <p className="mt-2 text-sm text-text-dim">
+            You&apos;ll need an account so only you can manage what you
+            create.
+          </p>
+          <div className="mt-6 flex justify-center gap-3">
+            <a
+              href="/login"
+              className="rounded-full bg-lamp px-6 py-3 font-mono text-sm font-medium uppercase tracking-wider text-ink"
+            >
+              Log in
+            </a>
+            <a
+              href="/signup"
+              className="rounded-full border border-line px-6 py-3 font-mono text-sm font-medium uppercase tracking-wider text-text"
+            >
+              Sign up
+            </a>
+          </div>
+        </div>
+      </main>
+    );
   }
 
   return (
