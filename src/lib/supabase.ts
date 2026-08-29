@@ -16,6 +16,7 @@ export type Company = {
   slug: string;
   name: string;
   mission: string;
+  owner_id: string | null;
   created_at: string;
 };
 
